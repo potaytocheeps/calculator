@@ -45,10 +45,17 @@ function addFunctionalityToButtons()
 {
     const numberButtons = document.querySelectorAll('.number-button');
     const displayMessage = document.querySelector('.display-message');
+    const operatorButtons = document.querySelectorAll('.operator-button');
 
     numberButtons.forEach((numberButton) => {
         numberButton.addEventListener('click', (event) => {
             displayMessage.textContent += event.target.textContent;
+        });
+    });
+
+    operatorButtons.forEach((operatorButton) => {
+        operatorButton.addEventListener('click', (event) => {
+            displayMessage.textContent += ' ' + event.target.textContent + ' ';
         });
     });
 }
