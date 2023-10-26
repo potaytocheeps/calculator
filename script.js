@@ -40,3 +40,17 @@ function operate(operator, numberA, numberB)
 
     return result;
 }
+
+function addFunctionalityToButtons()
+{
+    const numberButtons = document.querySelectorAll('.number-button');
+    const displayMessage = document.querySelector('.display-message');
+
+    numberButtons.forEach((numberButton) => {
+        numberButton.addEventListener('click', (event) => {
+            displayMessage.textContent += event.target.textContent;
+        });
+    });
+}
+
+addFunctionalityToButtons();
