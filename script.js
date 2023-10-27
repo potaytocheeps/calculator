@@ -1,64 +1,15 @@
-function add(numberA, numberB)
-{
-    return numberA + numberB;
-}
+calculator = {
+    methods: {
+        '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
+        '−': (firstOperand, secondOperand) => firstOperand - secondOperand,
+        '×': (firstOperand, secondOperand) => firstOperand * secondOperand,
+        '÷': (firstOperand, secondOperand) => firstOperand / secondOperand,
+    },
 
-function subtract(numberA, numberB)
-{
-    return numberA - numberB;
-}
-
-function multiply(numberA, numberB)
-{
-    return numberA * numberB;
-}
-
-function divide(numberA, numberB)
-{
-    return numberA / numberB;
-}
-
-function operate(operator, numberA, numberB)
-{
-    let result = null;
-
-    switch(operator)
+    operate: function(operator, firstOperand, secondOperand)
     {
-        case '+':
-            result = add(numberA, numberB);
-            break;
-        case '−':
-            result = subtract(numberA, numberB);
-            break;
-        case '×':
-            result = multiply(numberA, numberB);
-            break;
-        case '÷':
-            result = divide(numberA, numberB);
-            break;
+        return this.methods[operator](firstOperand, secondOperand);
     }
-
-    return result;
-}
-
-// This function needed to be declared separately to make use of function closures
-// with event handlers
-function addFunctionalityToEqualsButton(displayMessage)
-{
-    const equalsButton = document.querySelector('.button-equals');
-
-    equalsButton.addEventListener('click', () => {
-        // The displayMessage DOM element contains a string in the form of
-        // [operand] [operator] [operand], for example: "2 + 3"
-        const displayArray = displayMessage.textContent.split(' ');
-        const firstOperand = Number(displayArray[0]);
-        const operator = displayArray[1];
-        const secondOperand = Number(displayArray[2]);
-
-        displayMessage.textContent = '';
-
-        displayMessage.textContent = operate(operator, firstOperand, secondOperand);
-    });
 }
 
 function addFunctionalityToButtons()
@@ -66,6 +17,7 @@ function addFunctionalityToButtons()
     const numberButtons = document.querySelectorAll('.number-button');
     const displayMessage = document.querySelector('.display-message');
     const operatorButtons = document.querySelectorAll('.operator-button');
+    const equalsButton = document.querySelector('.button-equals');
 
     numberButtons.forEach((numberButton) => {
         numberButton.addEventListener('click', (event) => {
@@ -79,7 +31,16 @@ function addFunctionalityToButtons()
         });
     });
 
-    addFunctionalityToEqualsButton(displayMessage);
+    equalsButton.addEventListener('click', () => {
+        const displayArray = displayMessage.textContent.split(' ');
+        const firstOperand = Number(displayArray[0]);
+        const operator = displayArray[1];
+        const secondOperand = Number(displayArray[2]);
+
+        displayMessage.textContent = '';
+
+        displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
+    });
 }
 
 addFunctionalityToButtons();
