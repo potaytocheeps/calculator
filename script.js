@@ -18,10 +18,20 @@ function addFunctionalityToButtons()
     const displayMessage = document.querySelector('.display-message');
     const operatorButtons = document.querySelectorAll('.operator-button');
     const equalsButton = document.querySelector('.button-equals');
+    let displayMessageArray = null;
+    equalsButton.disabled = true;
 
     numberButtons.forEach((numberButton) => {
         numberButton.addEventListener('click', (event) => {
             displayMessage.textContent += event.target.textContent;
+
+            displayMessageArray = displayMessage.textContent.trimEnd().split(' ');
+
+            // Only enable equals button when an operation contains both operands and operator
+            if (displayMessageArray.length >= 3)
+            {
+                equalsButton.disabled = false;
+            }
         });
     });
 
@@ -40,6 +50,8 @@ function addFunctionalityToButtons()
         displayMessage.textContent = '';
 
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
+
+        equalsButton.disabled = true;
     });
 }
 
