@@ -27,18 +27,38 @@ function operate(operator, numberA, numberB)
         case '+':
             result = add(numberA, numberB);
             break;
-        case '-':
+        case '−':
             result = subtract(numberA, numberB);
             break;
-        case '*':
+        case '×':
             result = multiply(numberA, numberB);
             break;
-        case '/':
+        case '÷':
             result = divide(numberA, numberB);
             break;
     }
 
     return result;
+}
+
+// This function needed to be declared separately to make use of function closures
+// with event handlers
+function addFunctionalityToEqualsButton(displayMessage)
+{
+    const equalsButton = document.querySelector('.button-equals');
+
+    equalsButton.addEventListener('click', () => {
+        // The displayMessage DOM element contains a string in the form of
+        // [operand] [operator] [operand], for example: "2 + 3"
+        const displayArray = displayMessage.textContent.split(' ');
+        const firstOperand = Number(displayArray[0]);
+        const operator = displayArray[1];
+        const secondOperand = Number(displayArray[2]);
+
+        displayMessage.textContent = '';
+
+        displayMessage.textContent = operate(operator, firstOperand, secondOperand);
+    });
 }
 
 function addFunctionalityToButtons()
@@ -58,6 +78,8 @@ function addFunctionalityToButtons()
             displayMessage.textContent += ' ' + event.target.textContent + ' ';
         });
     });
+
+    addFunctionalityToEqualsButton(displayMessage);
 }
 
 addFunctionalityToButtons();
