@@ -3,7 +3,16 @@ calculator = {
         '+': (firstOperand, secondOperand) => firstOperand + secondOperand,
         '−': (firstOperand, secondOperand) => firstOperand - secondOperand,
         '×': (firstOperand, secondOperand) => firstOperand * secondOperand,
-        '÷': (firstOperand, secondOperand) => firstOperand / secondOperand,
+        '÷': (firstOperand, secondOperand) => {
+                            if (secondOperand === 0)
+                            {
+                                return 'Cannot divide by 0';
+                            }
+                            else
+                            {
+                                return firstOperand / secondOperand
+                            }
+                        }
     },
 
     operate: function(operator, firstOperand, secondOperand)
@@ -68,7 +77,14 @@ function addFunctionalityToButtons()
             if (displayMessageArray.length > 3)
             {
                 equalsButton.dispatchEvent(new Event('click'));
-                displayMessage.textContent += ' ' + event.target.textContent + ' ';
+
+                // Only add the operator to the display if the display does not contain a letter.
+                // This prevents the user from creating a calculation after they try to divide
+                // by 0, and a message appears on the display
+                if (!displayMessage.textContent.match(/[a-z]/))
+                {
+                    displayMessage.textContent += ' ' + event.target.textContent + ' ';
+                }
             }
         });
     });
@@ -84,6 +100,13 @@ function addFunctionalityToButtons()
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
 
         equalsButton.disabled = true;
+
+        // If the user previously tried to divide by 0, disable the operator buttons to prevent
+        // an error in calculation
+        if (displayMessage.textContent.match(/[a-z]/))
+        {
+            disableOperatorButtons(operatorButtons);
+        }
     });
 
     clearButton.addEventListener('click', () => {
