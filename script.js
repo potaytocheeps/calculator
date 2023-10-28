@@ -12,6 +12,20 @@ calculator = {
     }
 }
 
+function disableOperatorButtons(operatorButtons)
+{
+    operatorButtons.forEach((operatorButton) => {
+        operatorButton.disabled = true;
+    });
+}
+
+function enableOperatorButtons(operatorButtons)
+{
+    operatorButtons.forEach((operatorButton) => {
+        operatorButton.disabled = false;
+    });
+}
+
 function addFunctionalityToButtons()
 {
     const numberButtons = document.querySelectorAll('.number-button');
@@ -27,6 +41,8 @@ function addFunctionalityToButtons()
 
             displayMessageArray = displayMessage.textContent.trimEnd().split(' ');
 
+            enableOperatorButtons(operatorButtons);
+
             // Only enable equals button when an operation contains both operands and operator
             if (displayMessageArray.length >= 3)
             {
@@ -36,8 +52,12 @@ function addFunctionalityToButtons()
     });
 
     operatorButtons.forEach((operatorButton) => {
+        operatorButton.disabled = true;
+
         operatorButton.addEventListener('click', (event) => {
             displayMessage.textContent += ' ' + event.target.textContent + ' ';
+
+            disableOperatorButtons(operatorButtons);
         });
     });
 
