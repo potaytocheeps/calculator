@@ -130,6 +130,7 @@ function addFunctionalityToButtons()
 
         equalsButton.disabled = true;
         calculationIsComplete = true;
+        decimalButton.disabled = false;
 
         // If the user previously tried to divide by 0, disable the operator buttons to prevent
         // an error in calculation
@@ -146,6 +147,12 @@ function addFunctionalityToButtons()
     });
 
     decimalButton.addEventListener('click', (event) => {
+        if (calculationIsComplete)
+        {
+            displayMessage.textContent = '';
+            calculationIsComplete = false;
+        }
+
         displayMessage.textContent += event.target.textContent;
 
         decimalButton.disabled = true;
