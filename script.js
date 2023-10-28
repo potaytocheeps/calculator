@@ -32,6 +32,7 @@ function addFunctionalityToButtons()
     const displayMessage = document.querySelector('.display-message');
     const operatorButtons = document.querySelectorAll('.operator-button');
     const equalsButton = document.querySelector('.button-equals');
+    const clearButton = document.querySelector('.button-clear');
     let displayMessageArray = null;
     equalsButton.disabled = true;
 
@@ -82,6 +83,12 @@ function addFunctionalityToButtons()
 
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
 
+        equalsButton.disabled = true;
+    });
+
+    clearButton.addEventListener('click', () => {
+        displayMessage.textContent = '';
+        disableOperatorButtons(operatorButtons);
         equalsButton.disabled = true;
     });
 }
