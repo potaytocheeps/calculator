@@ -43,10 +43,17 @@ function addFunctionalityToButtons()
     const equalsButton = document.querySelector('.button-equals');
     const clearButton = document.querySelector('.button-clear');
     let displayMessageArray = null;
+    let calculationIsComplete = true;
     equalsButton.disabled = true;
 
     numberButtons.forEach((numberButton) => {
         numberButton.addEventListener('click', (event) => {
+            if (calculationIsComplete)
+            {
+                displayMessage.textContent = '';
+                calculationIsComplete = false;
+            }
+
             displayMessage.textContent += event.target.textContent;
 
             displayMessageArray = displayMessage.textContent.trimEnd().split(' ');
@@ -84,7 +91,12 @@ function addFunctionalityToButtons()
                 if (!displayMessage.textContent.match(/[a-z]/))
                 {
                     displayMessage.textContent += ' ' + event.target.textContent + ' ';
+                    calculationIsComplete = false;
                 }
+            }
+            else
+            {
+                calculationIsComplete = false;
             }
         });
     });
@@ -100,6 +112,7 @@ function addFunctionalityToButtons()
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
 
         equalsButton.disabled = true;
+        calculationIsComplete = true;
 
         // If the user previously tried to divide by 0, disable the operator buttons to prevent
         // an error in calculation
