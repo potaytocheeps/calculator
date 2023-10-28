@@ -42,6 +42,7 @@ function addFunctionalityToButtons()
     const operatorButtons = document.querySelectorAll('.operator-button');
     const equalsButton = document.querySelector('.button-equals');
     const clearButton = document.querySelector('.button-clear');
+    const decimalButton = document.querySelector('.button-decimal');
     let displayMessageArray = null;
     let calculationIsComplete = true;
     equalsButton.disabled = true;
@@ -98,6 +99,8 @@ function addFunctionalityToButtons()
             {
                 calculationIsComplete = false;
             }
+
+            decimalButton.disabled = false;
         });
     });
 
@@ -140,6 +143,12 @@ function addFunctionalityToButtons()
         displayMessage.textContent = '';
         disableOperatorButtons(operatorButtons);
         equalsButton.disabled = true;
+    });
+
+    decimalButton.addEventListener('click', (event) => {
+        displayMessage.textContent += event.target.textContent;
+
+        decimalButton.disabled = true;
     });
 }
 
