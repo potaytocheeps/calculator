@@ -58,6 +58,17 @@ function addFunctionalityToButtons()
             displayMessage.textContent += ' ' + event.target.textContent + ' ';
 
             disableOperatorButtons(operatorButtons);
+
+            displayMessageArray = displayMessage.textContent.trimEnd().split(' ');
+
+            // If the user has entered more than one operator in a calculation, simulate
+            // the clicking of the "=" button, and use the result of the calculation as the
+            // first operand of a new calculation, adding to it the second operator entered
+            if (displayMessageArray.length > 3)
+            {
+                equalsButton.dispatchEvent(new Event('click'));
+                displayMessage.textContent += ' ' + event.target.textContent + ' ';
+            }
         });
     });
 
