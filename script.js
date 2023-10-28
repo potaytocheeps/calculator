@@ -42,6 +42,7 @@ function addFunctionalityToButtons()
     const operatorButtons = document.querySelectorAll('.operator-button');
     const equalsButton = document.querySelector('.button-equals');
     const clearButton = document.querySelector('.button-clear');
+    const decimalButton = document.querySelector('.button-decimal');
     let displayMessageArray = null;
     let calculationIsComplete = true;
     equalsButton.disabled = true;
@@ -98,6 +99,11 @@ function addFunctionalityToButtons()
             {
                 calculationIsComplete = false;
             }
+
+            // If an operator is used, that means the user is currently entering the second
+            // operand, so the decimal button should be enabled again if it had been previously
+            // disabled with the first operand
+            decimalButton.disabled = false;
         });
     });
 
@@ -127,6 +133,7 @@ function addFunctionalityToButtons()
 
         equalsButton.disabled = true;
         calculationIsComplete = true;
+        decimalButton.disabled = false;
 
         // If the user previously tried to divide by 0, disable the operator buttons to prevent
         // an error in calculation
@@ -140,6 +147,19 @@ function addFunctionalityToButtons()
         displayMessage.textContent = '';
         disableOperatorButtons(operatorButtons);
         equalsButton.disabled = true;
+    });
+
+    decimalButton.addEventListener('click', (event) => {
+        if (calculationIsComplete)
+        {
+            displayMessage.textContent = '';
+            calculationIsComplete = false;
+        }
+
+        displayMessage.textContent += event.target.textContent;
+
+        // Only allow one decimal point to be used per operand
+        decimalButton.disabled = true;
     });
 }
 
