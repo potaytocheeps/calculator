@@ -111,6 +111,20 @@ function addFunctionalityToButtons()
 
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
 
+        // Round answers with long decimals up to 4 decimal places or 4 significant figures
+        // to avoid overflow of the display
+        if (!Number.isInteger(Number(displayMessage.textContent)))
+        {
+            if (Number(displayMessage.textContent) > 1)
+            {
+                displayMessage.textContent = Number(displayMessage.textContent).toFixed(4) * 1;
+            }
+            else
+            {
+                displayMessage.textContent = Number(displayMessage.textContent).toPrecision(4) * 1;
+            }
+        }
+
         equalsButton.disabled = true;
         calculationIsComplete = true;
 
