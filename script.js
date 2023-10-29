@@ -146,6 +146,7 @@ function addFunctionalityToButtons()
         displayMessage.textContent = '';
         disableOperatorButtons(operatorButtons);
         equalsButton.disabled = true;
+        decimalButton.disabled = false;
     });
 
     decimalButton.addEventListener('click', (event) => {
@@ -159,6 +160,8 @@ function addFunctionalityToButtons()
 
         // Only allow one decimal point to be used per operand
         decimalButton.disabled = true;
+
+        disableOperatorButtons(operatorButtons);
     });
 }
 
