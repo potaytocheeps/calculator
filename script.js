@@ -35,6 +35,54 @@ function enableOperatorButtons(operatorButtons)
     });
 }
 
+function deleteCharactersFromDisplay(displayString, displayMessage, decimalButton)
+{
+    if (displayString.endsWith(' '))
+    {
+        // Delete the operator and the two added spaces on each side
+        displayMessage.textContent = displayString.slice(0, -3);
+    }
+    else
+    {
+        // If the character to be deleted is a decimal point, enable the
+        // decimal button for use again
+        if (displayString.endsWith('.'))
+        {
+            decimalButton.disabled = false;
+        }
+
+        displayMessage.textContent = displayString.slice(0, -1);
+    }
+}
+
+function enableOrDisableButtons(displayArray, operatorButtons, decimalButton, equalsButton)
+{
+    // Case: Only the first operand is in the display
+    if (displayArray.length === 1)
+    {
+        enableOperatorButtons(operatorButtons);
+
+        if (displayArray[0].includes('.'))
+        {
+            decimalButton.disabled = true;
+        }
+    }
+    // Case: The operator and first operand are in the display
+    else if (displayArray.length === 2)
+    {
+        disableOperatorButtons(operatorButtons);
+    }
+    // Case: Both operands and the operator are in the display
+    else if (displayArray.length === 3)
+    {
+        if (displayArray[displayArray.length - 1].endsWith('.'))
+        {
+            disableOperatorButtons(operatorButtons);
+            equalsButton.disabled = true;
+        }
+    }
+}
+
 function addFunctionalityToButtons()
 {
     const numberButtons = document.querySelectorAll('.number-button');
@@ -43,6 +91,7 @@ function addFunctionalityToButtons()
     const equalsButton = document.querySelector('.button-equals');
     const clearButton = document.querySelector('.button-clear');
     const decimalButton = document.querySelector('.button-decimal');
+    const backspaceButton = document.querySelector('.button-backspace');
     let displayMessageArray = null;
     let calculationIsComplete = true;
     equalsButton.disabled = true;
@@ -162,6 +211,24 @@ function addFunctionalityToButtons()
         decimalButton.disabled = true;
 
         disableOperatorButtons(operatorButtons);
+    });
+
+    backspaceButton.addEventListener('click', () => {
+        if (displayMessage.textContent === '') return;
+
+        if (calculationIsComplete)
+        {
+            displayMessage.textContent = '';
+            return;
+        }
+
+        let displayString = displayMessage.textContent;
+
+        deleteCharactersFromDisplay(displayString, displayMessage, decimalButton);
+
+        let displayArray = displayMessage.textContent.trimEnd().split(' ');
+
+        enableOrDisableButtons(displayArray, operatorButtons, decimalButton, equalsButton);
     });
 }
 
