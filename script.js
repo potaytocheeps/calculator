@@ -201,6 +201,13 @@ function enableOrDisableButtons(displayArray, operatorButtons, decimalButton, eq
     // Case: Only the first operand is in the display
     if (displayArray.length === 1)
     {
+        if (displayArray[0] === '')
+        {
+            const clearButton = document.querySelector('.button-clear');
+            clearButton.dispatchEvent(new Event('click'));
+            return;
+        }
+
         enableOperatorButtons(operatorButtons);
 
         if (displayArray[0].includes('.'))
@@ -213,14 +220,12 @@ function enableOrDisableButtons(displayArray, operatorButtons, decimalButton, eq
     {
         disableOperatorButtons(operatorButtons);
     }
-    // Case: Both operands and the operator are in the display
-    else if (displayArray.length === 3)
+
+
+    if (displayArray[displayArray.length - 1].endsWith('.'))
     {
-        if (displayArray[displayArray.length - 1].endsWith('.'))
-        {
-            disableOperatorButtons(operatorButtons);
-            equalsButton.disabled = true;
-        }
+        disableOperatorButtons(operatorButtons);
+        equalsButton.disabled = true;
     }
 }
 
