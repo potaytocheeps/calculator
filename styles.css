@@ -6,6 +6,7 @@ body {
   display: flex;
   justify-content: center;
   margin: 0;
+  background-color: #242A43;
 }
 
 /* Calculator Container */
@@ -17,6 +18,9 @@ body {
   height: 600px;
   border: black solid 2px;
   margin-top: 80px;
+  background-color: #6290C3;
+  border-radius: 8px;
+  box-shadow: black 2px 4px 10px;
 }
 
 /* Display Container */
@@ -30,10 +34,13 @@ body {
 
 .display-message {
   flex: 1;
-  border: black solid 2px;
   text-align: end;
   margin: 0;
   font-size: 90px;
+  background-color: #FFF8F0;
+  border-radius: 4px;
+  box-shadow: black inset 1px 1px 2px 3px;
+  padding: 0 15px;
 }
 
 /* All Buttons */
@@ -57,13 +64,18 @@ body {
 .operator-buttons-container,
 .miscellaneous-buttons-container,
 .row {
-  gap: 8px;
+  gap: 9px;
 }
 
 button {
   flex: 1 1 0;
-  font-size: 20px;
+  font-size: 27px;
+  background-color: #FFF8F0;
+  border: none;
+  border-radius: 4px;
+  box-shadow: black 1px 1px 2px 2px;
 }
+
 
 /* Number Buttons */
 
@@ -78,6 +90,20 @@ button {
   display: flex;
 }
 
+.number-button:hover,
+.button-decimal:hover {
+  background-color: #FFF3E6;
+}
+
+.button-decimal:disabled {
+  background-color: #D8D1C9;
+}
+
+.number-button:active,
+.button-decimal:active {
+  background-color: #FFF8F0;
+}
+
 /* Operator Buttons */
 
 .operator-buttons-container {
@@ -86,15 +112,61 @@ button {
   flex: 0.9;
 }
 
+.operator-button {
+  background-color: #F4D06F;
+}
+
+.operator-button:hover {
+  background-color: #F6DA8D;
+}
+
+.operator-button:disabled {
+  background-color: #E0C183;
+}
+
+.operator-button:active {
+  background-color: #F8E0A0;
+}
+
 .button-add {
-  flex: 2.2;
+  flex: 2.15;
 }
 
 .operator-button,
 .button-equals {
-  font-size: 30px;
+  font-size: 35px;
 }
 
+/* Miscellaneous Buttons */
+
 .button-equals {
-  flex: 2.25; 
+  flex: 2.2;
+  background-color: #5CAD67;
+}
+
+.button-equals:hover {
+  background-color: #8DC695;
+}
+
+.button-equals:disabled {
+  background-color: #70917A;
+}
+
+.button-equals:active {
+  background-color: #9DCEA4;
+}
+
+.button-backspace,
+.button-clear {
+  background-color: #E65283;
+}
+
+.button-backspace:hover,
+.button-clear:hover {
+  background-color: #E9628F;
+}
+
+.button-backspace:active,
+.button-clear:active {
+  background-color: #EB749C;
 }
