@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+/* Calculator Container */
+
+.calculator-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 600px;
+  border: black solid 2px;
+  margin-top: 80px;
+}
+
+/* Display Container */
+
+.display-container {
+  height: 130px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 0px;
+}
+
+.display-message {
+  flex: 1;
+  border: black solid 2px;
+  text-align: end;
+  margin: 0;
+  font-size: 90px;
+}
+
+/* All Buttons */
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 15px;
+  padding: 20px;
+  gap: 8px;
+}
+
+.number-and-operator-buttons-container {
+  display: flex;
+  flex: 1;
+}
+
+.number-and-operator-buttons-container,
+.number-buttons-container,
+.operator-buttons-container,
+.miscellaneous-buttons-container,
+.row {
+  gap: 8px;
+}
+
+button {
+  flex: 1 1 0;
+  font-size: 20px;
+}
+
+/* Number Buttons */
+
+.number-buttons-container {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+}
+
+.row {
+  flex: 1;
+  display: flex;
+}
+
+/* Operator Buttons */
+
+.operator-buttons-container {
+  display: flex;
+  flex-direction: column;
+  flex: 0.9;
+}
+
+.button-add {
+  flex: 2.2;
+}
+
+.operator-button,
+.button-equals {
+  font-size: 30px;
+}
+
+.button-equals {
+  flex: 2.25; 
+}
