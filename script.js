@@ -205,8 +205,8 @@ function enableOrDisableButtons(displayArray, operatorButtons, decimalButton, eq
     {
         if (displayArray[0] === '')
         {
-            const clearButton = document.querySelector('.button-clear');
-            clearButton.dispatchEvent(new Event('click'));
+            disableOperatorButtons(operatorButtons);
+            equalsButton.disabled = true;
             return;
         }
 
@@ -221,6 +221,13 @@ function enableOrDisableButtons(displayArray, operatorButtons, decimalButton, eq
     else if (displayArray.length === 2)
     {
         disableOperatorButtons(operatorButtons);
+        equalsButton.disabled = true;
+    }
+    // Case: Both operands and operator are in the display
+    else if (displayArray.length === 3)
+    {
+        equalsButton.disabled = false;
+        enableOperatorButtons(operatorButtons);
     }
 
 
@@ -241,6 +248,7 @@ function addFunctionalityToBackspaceButton(calculatorElements, displayMessage)
         if (calculatorElements.calculationIsComplete)
         {
             displayMessage.textContent = '';
+            disableOperatorButtons(calculatorElements.operatorButtons);
             return;
         }
 
