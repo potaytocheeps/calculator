@@ -106,7 +106,7 @@ function addFunctionalityToOperatorButtons(calculatorElements, displayMessage)
     });
 }
 
-function addFunctionalityToEqualsButton(calculatorElements, displayMessage)
+function addFunctionalityToEqualsButton(calculatorElements, displayMessage, previousCalculationMessage)
 {
     calculatorElements.equalsButton.addEventListener('click', () => {
         const displayArray = displayMessage.textContent.split(' ');
@@ -114,6 +114,7 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage)
         const operator = displayArray[1];
         const secondOperand = Number(displayArray[2]);
 
+        previousCalculationMessage.textContent = displayMessage.textContent + ' =';
         displayMessage.textContent = '';
 
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
@@ -146,12 +147,13 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage)
     });
 }
 
-function addFunctionalityToClearButton(calculatorElements, displayMessage)
+function addFunctionalityToClearButton(calculatorElements, displayMessage, previousCalculationMessage)
 {
     const clearButton = document.querySelector('.button-clear');
 
     clearButton.addEventListener('click', () => {
         displayMessage.textContent = '';
+        previousCalculationMessage.textContent = '';
         disableOperatorButtons(calculatorElements.operatorButtons);
         calculatorElements.equalsButton.disabled = true;
         calculatorElements.decimalButton.disabled = false;
@@ -267,6 +269,7 @@ function addFunctionalityToButtons()
     // it is used a lot throughout the functions. This way, I can avoid needing to access
     // the calculatorElements each time I need to access the displayMessage
     const displayMessage = document.querySelector('.display-message');
+    const previousCalculationMessage = document.querySelector('.previous-calculation-message');
 
     calculatorElements.equalsButton.disabled = true;
 
@@ -274,9 +277,9 @@ function addFunctionalityToButtons()
 
     addFunctionalityToOperatorButtons(calculatorElements, displayMessage);
 
-    addFunctionalityToEqualsButton(calculatorElements, displayMessage);
+    addFunctionalityToEqualsButton(calculatorElements, displayMessage, previousCalculationMessage);
 
-    addFunctionalityToClearButton(calculatorElements, displayMessage);
+    addFunctionalityToClearButton(calculatorElements, displayMessage, previousCalculationMessage);
 
     addFunctionalityToDecimalButton(calculatorElements, displayMessage);
 
