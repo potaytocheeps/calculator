@@ -283,4 +283,46 @@ function addFunctionalityToButtons()
     addFunctionalityToBackspaceButton(calculatorElements, displayMessage);
 }
 
+function addKeyboardSupport()
+{
+    window.addEventListener('keydown', (event) => {
+        if (event.key >= 0 && event.key <= 9)
+        {
+            document.querySelector(`.button-${event.key}`).click();
+            return;
+        }
+
+        switch (event.key)
+        {
+            case '+':
+                document.querySelector('.button-add').click();
+                break;
+            case '-':
+                document.querySelector('.button-subtract').click();
+                break;
+            case '*':
+            case 'x':
+                document.querySelector('.button-multiply').click();
+                break;
+            case '/':
+                document.querySelector('.button-divide').click();
+                break;
+            case '=':
+            case 'Enter':
+                document.querySelector('.button-equals').click();
+                break;
+            case '.':
+                document.querySelector('.button-decimal').click();
+                break;
+            case 'Backspace':
+                document.querySelector('.button-backspace').click();
+                break;
+            case 'c':
+                document.querySelector('.button-clear').click();
+                break;
+        }
+    });
+}
+
 addFunctionalityToButtons();
+addKeyboardSupport();
