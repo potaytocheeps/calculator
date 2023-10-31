@@ -114,10 +114,11 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage, prev
         const operator = displayArray[1];
         const secondOperand = Number(displayArray[2]);
 
-        previousCalculationMessage.textContent = displayMessage.textContent + ' =';
+        previousCalculationMessage.textContent = displayMessage.textContent + ' = ';
         displayMessage.textContent = '';
 
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
+        previousCalculationMessage.textContent += displayMessage.textContent;
 
         calculatorElements.equalsButton.disabled = true;
         calculatorElements.calculationIsComplete = true;
