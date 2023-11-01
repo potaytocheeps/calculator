@@ -170,6 +170,7 @@ function addFunctionalityToOperatorButtons(calculatorElements, displayMessage)
             // first operand of a new calculation, adding to it the second operator entered
             if (displayMessageArray.length > 3)
             {
+                displayMessage.textContent = displayMessage.textContent.slice(0, -3);
                 calculatorElements.equalsButton.dispatchEvent(new Event('click'));
 
                 // Only add the operator to the display if the display does not contain a letter.
@@ -208,7 +209,6 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage, prev
         displayMessage.textContent = '';
 
         displayMessage.textContent = calculator.operate(operator, firstOperand, secondOperand);
-        previousCalculationMessage.textContent += displayMessage.textContent;
 
         calculatorElements.equalsButton.disabled = true;
         calculatorElements.calculationIsComplete = true;
@@ -236,10 +236,13 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage, prev
             }
         }
 
+        previousCalculationMessage.textContent += displayMessage.textContent;
+
         resizeDisplayFont(displayMessage);
         resizePreviousCalculationFont(previousCalculationMessage);
 
         enableNumberButtons(document.querySelectorAll('.number-button'));
+        previousCalculationMessage.parentNode.classList.add('bottom-border-separator');
     });
 }
 
@@ -253,6 +256,7 @@ function addFunctionalityToClearButton(calculatorElements, displayMessage, previ
         disableOperatorButtons(calculatorElements.operatorButtons);
         calculatorElements.equalsButton.disabled = true;
         calculatorElements.decimalButton.disabled = false;
+        previousCalculationMessage.parentNode.classList.remove('bottom-border-separator');
     });
 }
 

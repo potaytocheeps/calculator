@@ -61,6 +61,10 @@ p {
   color: #363636;
 }
 
+.bottom-border-separator {
+  border-bottom: #7d7d7d75 solid 1px;
+}
+
 /* All Buttons */
 
 .buttons-container {
