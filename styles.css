@@ -2,9 +2,15 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   display: flex;
+  height: 100%;
   justify-content: center;
+  align-items: center;
   margin: 0;
   background-color: #242A43;
 }
@@ -17,7 +23,6 @@ body {
   width: 500px;
   height: 600px;
   border: black solid 2px;
-  margin-top: 80px;
   background-color: #6290C3;
   border-radius: 8px;
   box-shadow: black 2px 4px 10px;
