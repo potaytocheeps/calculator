@@ -216,7 +216,7 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage, prev
 
         // If the user previously tried to divide by 0, disable the operator buttons to prevent
         // an error in calculation
-        if (displayMessage.textContent.match(/[a-z]/))
+        if (displayMessage.textContent.includes('Cannot'))
         {
             disableOperatorButtons(calculatorElements.operatorButtons);
         }
@@ -234,6 +234,11 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage, prev
                 displayMessage.textContent =
                         Number(displayMessage.textContent).toPrecision(4) * 1;
             }
+        }
+        else if (displayMessage.textContent.match('e'))
+        {
+            displayMessage.textContent =
+                Number(displayMessage.textContent).toPrecision(4) * 1;
         }
 
         previousCalculationMessage.textContent += displayMessage.textContent;
