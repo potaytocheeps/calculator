@@ -35,6 +35,93 @@ function enableOperatorButtons(operatorButtons)
     });
 }
 
+function disableNumberButtons(numberButtons)
+{
+    numberButtons.forEach((numberButton) => {
+        numberButton.disabled = true;
+    });
+}
+
+function enableNumberButtons(numberButtons)
+{
+    numberButtons.forEach((numberButton) => {
+        numberButton.disabled = false;
+    });
+}
+
+function resizePreviousCalculationFont(previousCalculationMessage)
+{
+    if (previousCalculationMessage.textContent.length <= 27)
+    {
+        previousCalculationMessage.style.fontSize = '30px';
+    }
+    else if (previousCalculationMessage.textContent.length <= 35)
+    {
+        previousCalculationMessage.style.fontSize = '23px';
+    }
+    else
+    {
+        previousCalculationMessage.style.fontSize = '17px';
+    }
+}
+
+function resizeDisplayFont(displayMessage)
+{
+    const numberButtons = document.querySelectorAll('.number-button');
+    const decimalButton = document.querySelector('.button-decimal');
+    const displayMessageArray = displayMessage.textContent.trimEnd().split(' ');
+
+    // Case: There is only one operand in the display
+    if (displayMessageArray.length === 1)
+    {
+        // Only allow up to 10 characters to be entered for the first operand
+        if (displayMessage.textContent.length >= 10)
+        {
+            disableNumberButtons(numberButtons);
+            decimalButton.disabled = true;
+        }
+        else
+        {
+            enableNumberButtons(numberButtons);
+            decimalButton.disabled = false;
+        }
+    }
+    // Case: The first operand and the operator are in the display
+    else if (displayMessageArray.length === 2)
+    {
+        enableNumberButtons(numberButtons);
+    }
+    // Case: Both operands and the operator are in the display
+    else if (displayMessageArray.length === 3)
+    {
+        // Only allow up to 23 characters maximum to be entered per calculation
+        if (displayMessage.textContent.length >= 23)
+        {
+            disableNumberButtons(numberButtons);
+            decimalButton.disabled = true;
+        }
+        else
+        {
+            enableNumberButtons(numberButtons);
+            decimalButton.disabled = false;
+        }
+    }
+
+    // Add responsive font sizing based on amount of characters in the display
+    if (displayMessage.textContent.length <= 12)
+    {
+        displayMessage.style.fontSize = '70px';
+    }
+    else if (displayMessage.textContent.length <= 19)
+    {
+        displayMessage.style.fontSize = '44px';
+    }
+    else
+    {
+        displayMessage.style.fontSize = '33px';
+    }
+}
+
 function addFunctionalityToNumberButtons(calculatorElements, displayMessage)
 {
     const numberButtons = document.querySelectorAll('.number-button');
@@ -49,6 +136,7 @@ function addFunctionalityToNumberButtons(calculatorElements, displayMessage)
             }
 
             displayMessage.textContent += event.target.textContent;
+            resizeDisplayFont(displayMessage);
 
             displayMessageArray = displayMessage.textContent.trimEnd().split(' ');
 
@@ -102,6 +190,8 @@ function addFunctionalityToOperatorButtons(calculatorElements, displayMessage)
             // operand, so the decimal button should be enabled again if it had been previously
             // disabled with the first operand
             calculatorElements.decimalButton.disabled = false;
+
+            resizeDisplayFont(displayMessage);
         });
     });
 }
@@ -145,6 +235,11 @@ function addFunctionalityToEqualsButton(calculatorElements, displayMessage, prev
                         Number(displayMessage.textContent).toPrecision(4) * 1;
             }
         }
+
+        resizeDisplayFont(displayMessage);
+        resizePreviousCalculationFont(previousCalculationMessage);
+
+        enableNumberButtons(document.querySelectorAll('.number-button'));
     });
 }
 
@@ -176,6 +271,8 @@ function addFunctionalityToDecimalButton(calculatorElements, displayMessage)
         calculatorElements.decimalButton.disabled = true;
 
         disableOperatorButtons(calculatorElements.operatorButtons);
+
+        resizeDisplayFont(displayMessage);
     });
 }
 
@@ -197,6 +294,8 @@ function deleteCharactersFromDisplay(displayString, displayMessage, decimalButto
 
         displayMessage.textContent = displayString.slice(0, -1);
     }
+
+    resizeDisplayFont(displayMessage);
 }
 
 function enableOrDisableButtons(displayArray, operatorButtons, decimalButton, equalsButton)
@@ -261,6 +360,8 @@ function addFunctionalityToBackspaceButton(calculatorElements, displayMessage)
 
         enableOrDisableButtons(displayArray, calculatorElements.operatorButtons,
                                 calculatorElements.decimalButton, calculatorElements.equalsButton);
+
+        resizeDisplayFont(displayMessage);
     });
 }
 
